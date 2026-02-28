@@ -1,0 +1,8 @@
+names:
+  0: object
+  1: hat
+  2: person
+path: "D:\\\u5F00\u53D1\u5DE5\u5177\\trae_projects\\YOLOv8\\backend\\workspaces\\\
+  aqmjc"
+train: images
+val: images
