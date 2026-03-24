@@ -1,15 +1,21 @@
-# 忽略整个文件夹
-文件夹名/
+# 依赖包
+node_modules/
+package-lock.json
+yarn.lock
 
-# 常用需要忽略的
+# Python
 __pycache__/
+*.pyc
 venv/
 env/
-node_modules/
+
+# 编辑器
+.vscode/
+.idea/
+
+# 日志
+*.log
+
+# 构建
 dist/
 build/
-.idea/
-.vscode/
-
-# 忽略文件
-package-lock.json
