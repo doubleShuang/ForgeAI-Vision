@@ -1,5 +1,6 @@
 # ForgeAI-Vision
 这是一个轻量化、快速上手的通用目标检测平台，实现标注、训练、推理的一站式服务，兼顾本地与边缘侧部署的视觉解决方案。项目基于 **YOLOv8** + **FastAPI** + **Vue3** 的全栈智能识别平台，支持模型管理、在线标注、模型训练和多媒体识别。
+<img width="1435" height="651" alt="image" src="https://github.com/user-attachments/assets/1a44cd7e-9b7f-4ca2-b704-f948e0d7251e" />
 
 ## 功能特性
 
