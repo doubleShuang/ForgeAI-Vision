@@ -59,8 +59,8 @@ def init_db(db: Session):
     }
     helmet_classes_json = json.dumps(helmet_classes)
     
-    # Path relative to backend root or absolute
-    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models", "safety_helmet"))
+    # Path relative to backend root
+    base_path = os.path.join("models", "safety_helmet")
     
     helmet_models = [
         {"name": "Safety Helmet (MobileNet 0.25)", "type": "mxnet", "accuracy": 0.75, "file_path": os.path.join(base_path, "mobile0.25.params"), "desc": "MXNet MobileNet0.25-SSD (Requires MXNet Env)", "classes": helmet_classes_json},

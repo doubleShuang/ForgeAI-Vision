@@ -245,7 +245,8 @@ class TrainingService:
             t = db.query(TrainingTask).filter(TrainingTask.id == task_id).first()
             t.status = "completed"
             t.current_epoch = epochs
-            t.result_path = str(results.save_dir)
+            # Make result_path relative to cwd
+            t.result_path = os.path.relpath(str(results.save_dir), start=os.getcwd())
             self._append_log(t, f"Training completed. Model saved to {results.save_dir}")
             db.commit()
             

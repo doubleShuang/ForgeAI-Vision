@@ -26,7 +26,7 @@ class ProjectService:
         project = AnnotationProject(
             name=name,
             description=description,
-            workspace_path=os.path.abspath(project_dir)
+            workspace_path=project_dir
         )
         db.add(project)
         db.commit()

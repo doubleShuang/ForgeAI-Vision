@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
     
     # Storage
-    UPLOAD_DIR: str = os.path.join(os.getcwd(), "uploads")
+    UPLOAD_DIR: str = "uploads"
     
     class Config:
         case_sensitive = True
