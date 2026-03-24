@@ -1,0 +1,15 @@
+# 忽略整个文件夹
+文件夹名/
+
+# 常用需要忽略的
+__pycache__/
+venv/
+env/
+node_modules/
+dist/
+build/
+.idea/
+.vscode/
+
+# 忽略文件
+package-lock.json
