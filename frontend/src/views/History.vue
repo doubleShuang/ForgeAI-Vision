@@ -135,7 +135,8 @@ const fetchHistory = async () => {
     loading.value = true
     try {
         const res = await api.getHistory()
-        history.value = res.data.map(item => ({
+        const list = Array.isArray(res) ? res : (res.data || [])
+        history.value = list.map(item => ({
             ...item,
             isEditing: false,
             editName: item.name

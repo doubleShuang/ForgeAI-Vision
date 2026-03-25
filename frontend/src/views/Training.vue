@@ -181,7 +181,8 @@ const fetchProjects = async () => {
 const fetchHistory = async () => {
     try {
         const res = await api.getTrainingHistory()
-        history.value = res.data.data // Assuming backend structure
+        // request.js 已解构，res 为 {code, data: {data: [], total}}
+        history.value = res.data?.data || []
     } catch (e) {}
 }
 

@@ -8,7 +8,11 @@
 - **在线标注**: 基于 Canvas 的标注工具，支持导出 COCO 格式。
 - **在线训练**: 配置训练参数 (Epochs, Batch Size) 并启动训练任务。
 - **媒体识别**: 支持图片上传识别和视频流处理。
-- **工程化架构**: 前后端分离，支持 MySQL/MinIO/Redis (生产环境) 和 SQLite/本地存储 (演示环境)。
+- **系统基础管理**: 内置企业级后台基础框架，包含用户管理、角色管理、部门管理、字典管理、菜单管理、系统参数配置、日志管理等完整支撑模块。
+- **现代化科技风界面**: 基于 Tailwind CSS 深度重构，支持**全局明亮/浅色与暗黑/深色模式无缝切换**，采用左侧垂直导航布局。
+- **项目详细文档**:
+    - [后端文档 (Backend Architecture)](backend/README.md)
+    - [前端文档 (Frontend Architecture)](frontend/README.md)
 
 ## 快速开始 (演示模式)
 
@@ -66,6 +70,6 @@ YOLOv8/
 
 ## 技术栈
 
-- **前端**: Vue 3, Vite, Element Plus, Video.js
+- **前端**: Vue 3, Vite, Element Plus, Tailwind CSS, Less, @vueuse/core, Video.js
 - **后端**: FastAPI, SQLAlchemy, Celery (模拟), Ultralytics YOLOv8
 - **基础设施**: MySQL, Redis, MinIO (可选)

@@ -54,7 +54,8 @@ const form = ref({
 const fetchModels = async () => {
   try {
     const res = await api.getModels()
-    models.value = res.data
+    // 由于 request.js 拦截器已返回了 response.data，所以这里 res 直接就是模型列表
+    models.value = Array.isArray(res) ? res : (res.data || [])
   } catch (error) {
     console.error(error)
   }

@@ -58,10 +58,11 @@ const form = ref({ name: '', description: '' })
 
 const fetchProjects = async () => {
   loading.value = true
-  try {
-    const res = await api.getProjects()
-    projects.value = res.data
-  } catch (error) {
+    try {
+        const res = await api.getProjects()
+        // request.js 已解构，res 即为项目列表或报文对象
+        projects.value = Array.isArray(res) ? res : (res.data || [])
+    } catch (error) {
     ElMessage.error('获取工程列表失败')
   } finally {
     loading.value = false

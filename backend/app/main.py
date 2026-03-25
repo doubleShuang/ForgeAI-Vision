@@ -4,9 +4,11 @@ from fastapi.staticfiles import StaticFiles
 from app.api.api import api_router
 from app.core.config import settings
 from app.db.session import engine, Base
+# 导入系统管理模型，确保 create_all 时建表
+from app.models import system as system_models  # noqa: F401
 import os
 
-# Create tables
+# 创建所有数据库表（包括系统管理表）
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -17,7 +19,7 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

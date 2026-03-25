@@ -111,7 +111,8 @@ const selectedClasses = ref([])
 const fetchModels = async () => {
   try {
     const res = await api.getModels()
-    modelList.value = res.data
+    // request.js 已解构，res 即为模型列表数组或报文对象
+    modelList.value = Array.isArray(res) ? res : (res.data || [])
     if (modelList.value.length > 0) {
       // Select first one by default
       const firstModel = modelList.value[0]
@@ -210,18 +211,19 @@ const startInference = async () => {
     try {
         if (fileType.value === 'image') {
             const res = await api.predictImage(formData)
-            detections.value = res.data.data
+            // request.js 已解构一层，res 为后端返回的完整报文
+            detections.value = res.data || []
             if (originalImage.value) {
                 drawCanvas(originalImage.value, detections.value)
             }
         } else {
             // Video
             const res = await api.predictVideo(formData)
-            videoUrl.value = `http://localhost:8000${res.data.data.video_url}`
+            videoUrl.value = `http://localhost:8000${res.data?.video_url}`
         }
     } catch (error) {
         console.error(error)
-        alert("识别失败: " + (error.response?.data?.message || error.message))
+        ElMessage.error("识别失败: " + (error.response?.data?.message || error.message))
     } finally {
         isProcessing.value = false
     }

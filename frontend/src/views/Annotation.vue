@@ -1,7 +1,7 @@
 <template>
   <div class="annotation-page">
     <div class="header">
-      <el-page-header @back="goBack" v-if="projectId">
+      <el-page-header @back="goBack">
         <template #content>
           <span class="text-large font-600 mr-3"> 在线标注: {{ project.name }} </span>
         </template>
@@ -12,12 +12,11 @@
             <el-button type="primary" @click="saveAnnotation">保存标注</el-button>
         </template>
       </el-page-header>
-      <h2 v-else>在线标注 (演示模式)</h2>
     </div>
 
     <el-container style="height: calc(100vh - 100px); border: 1px solid #eee;">
       <el-aside width="200px" style="border-right: 1px solid #eee; padding: 10px;">
-        <div v-if="projectId">
+        <div>
             <h4>图片列表</h4>
             <div class="image-list">
                 <div 
@@ -30,9 +29,6 @@
                     {{ img }}
                 </div>
             </div>
-        </div>
-        <div v-else>
-            <input type="file" @change="loadLocalImage" accept="image/*" />
         </div>
       </el-aside>
       
@@ -87,20 +83,26 @@ const startY = ref(0)
 const boxes = ref([]) 
 
 onMounted(async () => {
-    ctx.value = canvas.value.getContext('2d')
-    if (projectId) {
-        await fetchProjectData()
+    // 没有工程ID时，跳转到标注工程列表页
+    if (!projectId) {
+        router.push('/projects')
+        return
     }
+    ctx.value = canvas.value.getContext('2d')
+    await fetchProjectData()
 })
 
 const fetchProjectData = async () => {
     try {
+        // request.js 自动解构 response.data
         const pRes = await api.getProject(projectId)
-        project.value = pRes.data
+        project.value = pRes.data || pRes
+        
         const iRes = await api.getProjectImages(projectId)
-        images.value = iRes.data
+        images.value = Array.isArray(iRes) ? iRes : (iRes.data || [])
+        
         const cRes = await api.getClasses(projectId)
-        classes.value = cRes.data
+        classes.value = Array.isArray(cRes) ? cRes : (cRes.data || [])
         
         if (images.value.length > 0) {
             selectImage(images.value[0])
@@ -129,7 +131,7 @@ const selectImage = async (imgName) => {
         })
         
         const annotationPromise = api.getAnnotation(projectId, imgName)
-            .then(res => res.data.content)
+            .then(res => res.content || res.data?.content || "")
             .catch(() => "") // Treat error (404) as empty annotation
             
         const [img, content] = await Promise.all([imagePromise, annotationPromise])
